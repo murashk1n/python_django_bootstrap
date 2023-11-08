@@ -55,7 +55,7 @@ class CityUpdateView(UpdateView):
 
 class CityDeleteView(DeleteView):
     model = City
-    template_name = 'cities/delete.html'
+    # template_name = 'cities/delete.html'
     success_url = reverse_lazy('cities:home')
 
     def get(self, request, *args, **kwargs):
@@ -66,3 +66,9 @@ class CityListView(ListView):
     paginate_by = 2
     model = City
     template_name = 'cities/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = CityForm()
+        context['form'] = form
+        return context
