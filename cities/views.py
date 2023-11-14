@@ -20,13 +20,6 @@ def home(request, pk=None):
         if form.is_valid():
             print(form.cleaned_data)
             form.save()
-
-    # if pk:
-    # city = City.objects.filter(id=pk).first()
-    # city = get_object_or_404(City, id=pk)
-
-    # context = {'object': city}
-    # return render(request, 'cities/detail.html', context)
     form = CityForm()
     qs = City.objects.all()
     lst = Paginator(qs, 2)
