@@ -7,7 +7,7 @@ class Route(models.Model):
     name = models.CharField(max_length=50, unique=True,
                             verbose_name='Route')
     travel_times = models.PositiveSmallIntegerField(verbose_name='Total duration of the trip')
-    from_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='route_from_city_set',
+    from_city = models.ForeignKey('cities.City', on_delete=models.CASCADE, related_name='route_from_city_set',
                                   verbose_name='From city')
     to_city = models.ForeignKey('cities.City', on_delete=models.CASCADE, related_name='route_to_city_set',
                                 verbose_name='To city')

@@ -7,11 +7,15 @@ from cities.models import City
 class Train(models.Model):
     name = models.CharField(max_length=50, unique=True,
                             verbose_name='Train number')
-    travel_time = models.PositiveIntegerField(verbose_name='Duration of the trip')
-    from_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='from_city_set',
-                                  verbose_name='From city')
-    to_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='to_city_set',
-                                verbose_name='To city')
+    travel_time = models.PositiveSmallIntegerField(verbose_name='Duration of the trip')
+    from_city = models.ForeignKey(City, on_delete=models.CASCADE,
+                                  related_name='from_city_set',
+                                  verbose_name='From city'
+                                  )
+    to_city = models.ForeignKey('cities.City', on_delete=models.CASCADE,
+                                related_name='to_city_set',
+                                verbose_name='To city'
+                                )
 
     def __str__(self):
         return f'Train {self.name} from {self.from_city}'
@@ -26,7 +30,6 @@ class Train(models.Model):
             raise ValidationError("Change arrival city")
         qs = Train.objects.filter(from_city=self.from_city, to_city=self.to_city,
                                   travel_time=self.travel_time).exclude(pk=self.pk)
-        # Train == self.__class__
         if qs.exists():
             raise ValidationError('Change duration time')
 

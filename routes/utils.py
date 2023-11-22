@@ -23,7 +23,7 @@ def get_graph(qs):
 
 def get_routes(request, form) -> dict:
     context = {'form': form}
-    qs = Train.objects.all()
+    qs = Train.objects.all().select_related('from_city', 'to_city')
     graph = get_graph(qs)
     data = form.cleaned_data
     from_city = data['from_city']
@@ -73,5 +73,5 @@ def get_routes(request, form) -> dict:
                 if time == route['total_time']:
                     sorted_routes.append(route)
     context['routes'] = sorted_routes
-    context['cities'] = {'from city': from_city.name, 'to_city': to_city.name}
+    context['cities'] = {'from_city': from_city, 'to_city': to_city}
     return context

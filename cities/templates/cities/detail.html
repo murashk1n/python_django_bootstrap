@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}City{% endblock %}
+
 {% block content %}
 <h1>City</h1>
 <div class="row">
     <div class="col-md">
-        <p>{{object.name}}</p>
+        <p>City {{object.name}}</p>
+
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
         <a href="{% url 'cities:home' %}">
-            <button TYPE="button" class="btn btn-light">Back to list</button>
+            <button type="button" class="btn btn-light">Back to list</button>
         </a>
     </div>
 </div>
 {% endblock %}
+
