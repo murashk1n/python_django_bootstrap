@@ -3,7 +3,6 @@
 {% url 'trains:home' as trains_home_url %}
 {% url 'trains:create' as trains_create_url %}
 {% url 'list' as route_list %}
-{% url 'detail' as route_detail %}
 
 <!doctype html>
 <html lang="en">
@@ -27,7 +26,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == cities_home_url %} active {% endif %}"
                        aria-current="page" href="{% url 'cities:home' %}">Cities</a>
@@ -37,8 +36,9 @@
                        href="{% url 'trains:home' %}">Trains</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == route_list or request.path == route_detail %} active {% endif %}" href="{% url 'list' %}">Routes</a>
+                    <a class="nav-link {% if request.path == route_list %} active {% endif %}" href="{% url 'list' %}">Routes</a>
                 </li>
+                {% if user.is_authenticated%}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {% if request.path == cities_create_url or request.path == trains_create_url %} active {% endif %}"
                        href="#" id="navbarDropdownMenuLink" role="button"
@@ -50,6 +50,21 @@
                         <li><a class="dropdown-item" href="{% url 'trains:create' %}">New Train</a></li>
                     </ul>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="">Add</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
